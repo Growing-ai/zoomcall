@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zoom susitikimas su Andriumi Auguliu</title>
+<meta name="description" content="Prisijunk prie Zoom susitikimo su Andriumi Auguliu.">
+<!-- OG žymes Claude atnaujina kiekvienam renginiui (Facebook / Messenger peržiūrai) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zoomcall.eu/">
+<meta property="og:title" content="Zoom susitikimas su Andriumi Auguliu">
+<meta property="og:description" content="Paspausk ir prisijunk.">
+<meta property="og:image" content="https://zoomcall.eu/images/og-default.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f14;--card:#151a22;--ink:#f3efe7;--mute:#9aa3ae;--accent:#2d8cff;--warm:#f5b84b;--line:#262d38}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:24px 16px 48px}
+main{width:100%;max-width:560px}
+.hello{font-family:Fraunces,serif;font-size:15px;color:var(--warm);letter-spacing:.02em;margin-bottom:14px;min-height:20px}
+.hero{border-radius:20px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.hero img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover}
+.body{padding:22px 22px 24px}
+.kicker{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
+h1{font-family:Fraunces,serif;font-weight:700;font-size:clamp(26px,6vw,36px);line-height:1.1;margin:8px 0 10px}
+.desc{color:#c9cfd6;line-height:1.55;font-size:15px}
+.when{display:flex;gap:10px;align-items:center;margin-top:18px;font-size:15px;font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--warm)}
+.live .dot{background:#3ddc84;box-shadow:0 0 0 0 #3ddc84;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}100%{box-shadow:0 0 0 12px rgba(61,220,132,0)}}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.count div{background:#0f1319;border:1px solid var(--line);border-radius:12px;padding:10px 0;text-align:center}
+.count b{display:block;font-family:Fraunces,serif;font-size:24px}
+.count span{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;font-weight:600;font-size:17px;padding:16px;border-radius:14px;margin-top:18px;transition:transform .15s}
+.btn:active{transform:scale(.98)}
+.join{background:var(--accent);color:#fff}
+.join.hot{box-shadow:0 0 0 4px rgba(45,140,255,.25);animation:glow 1.4s ease-in-out infinite alternate}
+@keyframes glow{to{box-shadow:0 0 0 10px rgba(45,140,255,.08)}}
+.cal{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.cal a{display:block;text-align:center;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px 6px;font-size:14px;font-weight:500;background:#0f1319}
+.meta{margin-top:16px;font-size:13px;color:var(--mute);text-align:center}
+.meta code{color:var(--ink)}
+footer{margin-top:22px;text-align:center;font-size:12px;color:#5d6672}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <p class="hello" id="hello"></p>
+  <article class="hero">
+    <img id="img" alt="">
+    <div class="body">
+      <p class="kicker" id="kicker"></p>
+      <h1 id="title"></h1>
+      <p class="desc" id="desc"></p>
+      <p class="when" id="whenRow"><span class="dot"></span><span id="when"></span></p>
+      <div class="count" id="count" hidden>
+        <div><b id="cd">0</b><span id="ld">d.</span></div>
+        <div><b id="ch">0</b><span id="lh">val.</span></div>
+        <div><b id="cm">0</b><span id="lm">min.</span></div>
+        <div><b id="cs">0</b><span id="ls">sek.</span></div>
+      </div>
+      <a class="btn join" id="join" href="#" rel="noopener"></a>
+      <div class="cal" id="cal" hidden>
+        <a id="gcal" href="#" rel="noopener">Google Calendar</a>
+        <a id="ics" href="#">Apple / Outlook</a>
+      </div>
+      <p class="meta" id="meta"></p>
+    </div>
+  </article>
+  <footer>Andrius Augulis · zoomcall.eu</footer>
+</main>
+
+<!-- RENGINIO NUSTATYMAI. Claude keičia tik šį bloką (arba event.json). -->
+<script type="application/json" id="config">
+{
+  "lang": "lt",
+  "host": "Andrius Augulis",
+  "zoom": "https://us02web.zoom.us/j/2799548599",
+  "meetingId": "279 954 8599",
+  "default": {
+    "kicker": "Asmeninis Zoom kambarys",
+    "title": "Prisijunk prie Zoom pokalbio su Andriumi",
+    "desc": "Paspausk mygtuką. Zoom atsidarys naršyklėje arba programėlėje.",
+    "image": ""
+  },
+  "event": {
+    "kicker": "Seminaras · Zoom",
+    "title": "Sveikata iš vidaus: ką rodo kraujo testas",
+    "desc": "Gyvas 60 min. pokalbis: kaip suprasti savo testo rezultatus ir ką keisti kasdienybėje. Klausimai – gyvai.",
+    "image": "",
+    "start": "2026-11-10T19:00:00+02:00",
+    "end": "2026-11-10T20:30:00+02:00"
+  }
+}
+</script>
+
+<script>
+(function(){
+const C = JSON.parse(document.getElementById('config').textContent);
+const T = {
+  lt:{hi:n=>`Labas, ${n}! Laukiu tavęs.`,join:'Prisijungti prie Zoom',joinLive:'Prisijungti dabar',soon:'Prasideda netrukus',live:'Vyksta dabar',ended:'Renginys baigėsi',
+      d:'d.',h:'val.',m:'min.',s:'sek.',id:'Meeting ID',days:['sekmadienis','pirmadienis','antradienis','trečiadienis','ketvirtadienis','penktadienis','šeštadienis'],
+      months:['sausio','vasario','kovo','balandžio','gegužės','birželio','liepos','rugpjūčio','rugsėjo','spalio','lapkričio','gruodžio'],calDesc:'Prisijungimas: https://zoomcall.eu'},
+  en:{hi:n=>`Hi ${n}! See you there.`,join:'Join the Zoom call',joinLive:'Join now',soon:'Starting soon',live:'Live now',ended:'This event has ended',
+      d:'days',h:'hrs',m:'min',s:'sec',id:'Meeting ID',days:null,months:null,calDesc:'Join: https://zoomcall.eu'}
+};
+const L = T[C.lang] || T.lt;
+const $ = id => document.getElementById(id);
+
+// Asmeninis pasveikinimas: zoomcall.eu/?v=Tomas  (arba #Tomas)
+let name = new URLSearchParams(location.search).get('v') || decodeURIComponent((location.hash||'').slice(1));
+name = (name||'').replace(/[<>"]/g,'').trim().slice(0,30);
+if(name) $('hello').textContent = L.hi(name.charAt(0).toUpperCase()+name.slice(1));
+
+const now = Date.now();
+const ev = C.event && C.event.start ? C.event : null;
+const st = ev ? Date.parse(ev.start) : 0, en = ev ? Date.parse(ev.end || ev.start) : 0;
+const active = ev && now < en;                 // po pabaigos – grįžta į įprastą vaizdą
+const D = active ? ev : C.default;
+
+$('kicker').textContent = D.kicker; $('title').textContent = D.title; $('desc').textContent = D.desc;
+document.title = D.title;
+$('img').src = D.image || cover(D.title, active ? D.kicker : C.host);
+$('img').alt = D.title;
+const join = $('join'); join.href = C.zoom; join.textContent = L.join;
+$('meta').innerHTML = `${L.id}: <code>${C.meetingId}</code>`;
+
+if(!active){ $('whenRow').hidden = true; return; }
+
+$('when').textContent = fmt(new Date(st)) + '–' + hm(new Date(en));
+$('cal').hidden = false;
+const g = d => new Date(d).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+$('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(ev.title)+
+  '&dates='+g(st)+'/'+g(en)+'&details='+encodeURIComponent(ev.desc+'\n\n'+L.calDesc)+'&location='+encodeURIComponent('https://zoomcall.eu');
+const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//zoomcall.eu//LT','BEGIN:VEVENT','UID:'+g(st)+'@zoomcall.eu','DTSTAMP:'+g(now),
+  'DTSTART:'+g(st),'DTEND:'+g(en),'SUMMARY:'+ev.title,'DESCRIPTION:'+(ev.desc+' '+L.calDesc).replace(/\n/g,' '),'LOCATION:https://zoomcall.eu',
+  'BEGIN:VALARM','TRIGGER:-PT15M','ACTION:DISPLAY','DESCRIPTION:'+ev.title,'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+$('ics').href = 'data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+$('ics').setAttribute('download','renginys.ics');
+
+function tick(){
+  const t = Date.now(), left = st - t;
+  if(t >= en){ location.reload(); return; }
+  if(left <= 0){
+    $('count').hidden = true; $('whenRow').classList.add('live'); $('when').textContent = L.live;
+    join.textContent = L.joinLive; join.classList.add('hot'); return;
+  }
+  $('count').hidden = false;
+  const s = Math.floor(left/1000);
+  $('cd').textContent = Math.floor(s/86400); $('ch').textContent = Math.floor(s%86400/3600);
+  $('cm').textContent = Math.floor(s%3600/60); $('cs').textContent = s%60;
+  if(left < 10*60*1000){ join.classList.add('hot'); join.textContent = L.joinLive; }
+}
+['d','h','m','s'].forEach(k=>$('l'+k).textContent=L[k]);
+tick(); setInterval(tick,1000);
+
+function hm(d){return d.toLocaleTimeString(C.lang==='en'?'en-GB':'lt-LT',{hour:'2-digit',minute:'2-digit'})}
+function fmt(d){
+  if(C.lang==='en') return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+', '+hm(d);
+  return `${L.months[d.getMonth()]} ${d.getDate()} d., ${L.days[d.getDay()]}, ${hm(d)}`;
+}
+// Atsarginis viršelis, jei renginiui nėra nuotraukos
+function cover(title, sub){
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const words = title.split(' '), lines=[]; let cur='';
+  words.forEach(w=>{ if((cur+' '+w).trim().length>24){lines.push(cur.trim());cur=w}else cur+=' '+w }); lines.push(cur.trim());
+  const y0 = 330 - (lines.length-1)*36;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<defs><radialGradient id="a" cx="20%" cy="10%" r="90%"><stop offset="0" stop-color="#2d8cff"/><stop offset=".55" stop-color="#14305a"/><stop offset="1" stop-color="#0c0f14"/></radialGradient>
+<radialGradient id="b" cx="95%" cy="100%" r="60%"><stop offset="0" stop-color="#f5b84b" stop-opacity=".55"/><stop offset="1" stop-color="#f5b84b" stop-opacity="0"/></radialGradient></defs>
+<rect width="1200" height="630" fill="url(#a)"/><rect width="1200" height="630" fill="url(#b)"/>
+<text x="80" y="${y0-70}" fill="#f5b84b" font-family="Inter,sans-serif" font-size="28" font-weight="600" letter-spacing="4">${esc(sub.toUpperCase())}</text>
+${lines.map((l,i)=>`<text x="80" y="${y0+i*72}" fill="#f3efe7" font-family="Georgia,serif" font-size="64" font-weight="700">${esc(l)}</text>`).join('')}
+<text x="80" y="560" fill="#f3efe7" opacity=".7" font-family="Inter,sans-serif" font-size="26">zoomcall.eu</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+})();
+</script>
+</body>
+</html>
