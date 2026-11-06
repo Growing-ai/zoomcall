@@ -8,9 +8,9 @@
 <!-- OG žymes Claude atnaujina kiekvienam renginiui (Facebook / Messenger peržiūrai) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zoomcall.eu/">
-<meta property="og:title" content="Zoom susitikimas su Andriumi Auguliu">
-<meta property="og:description" content="Paspausk ir prisijunk.">
-<meta property="og:image" content="https://zoomcall.eu/images/og-default.jpg">
+<meta property="og:title" content="November to Remember – Zinzino partnerių renginys">
+<meta property="og:description" content="Lapkričio 7 d. 11:00, Congress Avenue, Vilnius ir Zoom. Pranešėjas Andrius Augulis, online svečias Hilde Saele.">
+<meta property="og:image" content="https://tickets.paysera.com/public/images/acf73f16-d7ab-11f1-b0c9-bc2411da9209/zinzino-partneriu-renginys-november-to-remember_lt__1793734392_791d9c1f.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -44,6 +44,11 @@ h1{font-family:Fraunces,serif;font-weight:700;font-size:clamp(26px,6vw,36px);lin
 .meta{margin-top:16px;font-size:13px;color:var(--mute);text-align:center}
 .meta code{color:var(--ink)}
 footer{margin-top:22px;text-align:center;font-size:12px;color:#5d6672}
+.venue{margin-top:10px;font-size:15px}.venue a{color:var(--ink)}
+.alt{background:transparent;color:var(--ink);border:1px solid var(--line);font-size:15px;padding:13px}
+section{margin-top:22px}h2{font-family:Fraunces,serif;font-size:19px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:14px}td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}td:first-child{color:var(--warm);white-space:nowrap;padding-right:14px;font-weight:600}
+ul{padding-left:18px;color:#c9cfd6;font-size:14px;line-height:1.8}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -63,11 +68,15 @@ footer{margin-top:22px;text-align:center;font-size:12px;color:#5d6672}
         <div><b id="cm">0</b><span id="lm">min.</span></div>
         <div><b id="cs">0</b><span id="ls">sek.</span></div>
       </div>
+      <p class="venue" id="venue" hidden>📍 <a id="venueA" href="#" rel="noopener"></a></p>
       <a class="btn join" id="join" href="#" rel="noopener"></a>
       <div class="cal" id="cal" hidden>
         <a id="gcal" href="#" rel="noopener">Google Calendar</a>
         <a id="ics" href="#">Apple / Outlook</a>
       </div>
+      <a class="btn alt" id="link" href="#" rel="noopener" hidden></a>
+      <section id="prog" hidden><h2>Programa</h2><table id="progT"></table></section>
+      <section id="tops" hidden><h2>Temos</h2><ul id="topsL"></ul></section>
       <p class="meta" id="meta"></p>
     </div>
   </article>
@@ -88,12 +97,46 @@ footer{margin-top:22px;text-align:center;font-size:12px;color:#5d6672}
     "image": ""
   },
   "event": {
-    "kicker": "Seminaras · Zoom",
-    "title": "Sveikata iš vidaus: ką rodo kraujo testas",
-    "desc": "Gyvas 60 min. pokalbis: kaip suprasti savo testo rezultatus ir ką keisti kasdienybėje. Klausimai – gyvai.",
-    "image": "",
-    "start": "2026-11-10T19:00:00+02:00",
-    "end": "2026-11-10T20:30:00+02:00"
+    "kicker": "Zinzino partnerių renginys · Vilnius + Zoom",
+    "title": "November to Remember",
+    "desc": "Pagrindinis pranešėjas – Andrius Augulis. Specialus online svečias – Hilde Saele. Negali atvykti į salę? Prisijunk per Zoom.",
+    "image": "https://tickets.paysera.com/public/images/acf73f16-d7ab-11f1-b0c9-bc2411da9209/zinzino-partneriu-renginys-november-to-remember_lt__1793734392_791d9c1f.jpeg",
+    "start": "2026-11-07T11:00:00+02:00",
+    "end": "2026-11-07T16:30:00+02:00",
+    "venue": "Congress Avenue, Gedimino pr. 12, Vilnius",
+    "venueUrl": "https://maps.google.com/?q=Congress+Avenue+Gedimino+pr.+12+Vilnius",
+    "link": "https://tickets.paysera.com/lt/event/zinzino-partneriu-renginys-november-to-remember",
+    "linkText": "Bilietai į salę (15–35 €)",
+    "program": [
+      [
+        "10:30",
+        "Renkamės"
+      ],
+      [
+        "11:00–13:00",
+        "Pirmoji dalis"
+      ],
+      [
+        "13:00–14:30",
+        "Pietūs"
+      ],
+      [
+        "14:30–16:30",
+        "Antroji dalis"
+      ],
+      [
+        "16:30",
+        "Kava, desertai, sprendimai ir mini after party"
+      ]
+    ],
+    "topics": [
+      "Kodėl Zinzino?",
+      "Kaip efektyviai išnaudoti kampanijas",
+      "Naujų produktų pristatymas",
+      "Kaip užmegzti kontaktą su naujais žmonėmis",
+      "Tikslai ateinančiam mėnesiui ir metams",
+      "Kodėl svarbu dalyvauti „Rank Up“ skambučiuose"
+    ]
   }
 }
 </script>
@@ -126,18 +169,23 @@ $('kicker').textContent = D.kicker; $('title').textContent = D.title; $('desc').
 document.title = D.title;
 $('img').src = D.image || cover(D.title, active ? D.kicker : C.host);
 $('img').alt = D.title;
+$('img').onerror = function(){ this.onerror=null; this.src = cover(D.title, active ? D.kicker : C.host); };
 const join = $('join'); join.href = C.zoom; join.textContent = L.join;
 $('meta').innerHTML = `${L.id}: <code>${C.meetingId}</code>`;
 
 if(!active){ $('whenRow').hidden = true; return; }
 
+if(ev.venue){$('venue').hidden=false;$('venueA').textContent=ev.venue;$('venueA').href=ev.venueUrl||'#';}
+if(ev.link){$('link').hidden=false;$('link').href=ev.link;$('link').textContent=ev.linkText||ev.link;}
+if(ev.program){$('prog').hidden=false;$('progT').innerHTML=ev.program.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');}
+if(ev.topics){$('tops').hidden=false;$('topsL').innerHTML=ev.topics.map(t=>`<li>${t}</li>`).join('');}
 $('when').textContent = fmt(new Date(st)) + '–' + hm(new Date(en));
 $('cal').hidden = false;
 const g = d => new Date(d).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
 $('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(ev.title)+
-  '&dates='+g(st)+'/'+g(en)+'&details='+encodeURIComponent(ev.desc+'\n\n'+L.calDesc)+'&location='+encodeURIComponent('https://zoomcall.eu');
+  '&dates='+g(st)+'/'+g(en)+'&details='+encodeURIComponent(ev.desc+'\n\n'+L.calDesc)+'&location='+encodeURIComponent(ev.venue||'https://zoomcall.eu');
 const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//zoomcall.eu//LT','BEGIN:VEVENT','UID:'+g(st)+'@zoomcall.eu','DTSTAMP:'+g(now),
-  'DTSTART:'+g(st),'DTEND:'+g(en),'SUMMARY:'+ev.title,'DESCRIPTION:'+(ev.desc+' '+L.calDesc).replace(/\n/g,' '),'LOCATION:https://zoomcall.eu',
+  'DTSTART:'+g(st),'DTEND:'+g(en),'SUMMARY:'+ev.title,'DESCRIPTION:'+(ev.desc+' '+L.calDesc).replace(/\n/g,' '),'LOCATION:'+(ev.venue||'https://zoomcall.eu').replace(/,/g,'\\,'),
   'BEGIN:VALARM','TRIGGER:-PT15M','ACTION:DISPLAY','DESCRIPTION:'+ev.title,'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
 $('ics').href = 'data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
 $('ics').setAttribute('download','renginys.ics');
