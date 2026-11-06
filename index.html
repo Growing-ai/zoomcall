@@ -136,7 +136,9 @@ ul{padding-left:18px;color:#c9cfd6;font-size:14px;line-height:1.8}
       "Kaip užmegzti kontaktą su naujais žmonėmis",
       "Tikslai ateinančiam mėnesiui ir metams",
       "Kodėl svarbu dalyvauti „Rank Up“ skambučiuose"
-    ]
+    ],
+    "zoom": "https://us02web.zoom.us/j/85661945820",
+    "meetingId": "856 6194 5820"
   }
 }
 </script>
@@ -170,8 +172,8 @@ document.title = D.title;
 $('img').src = D.image || cover(D.title, active ? D.kicker : C.host);
 $('img').alt = D.title;
 $('img').onerror = function(){ this.onerror=null; this.src = cover(D.title, active ? D.kicker : C.host); };
-const join = $('join'); join.href = C.zoom; join.textContent = L.join;
-$('meta').innerHTML = `${L.id}: <code>${C.meetingId}</code>`;
+const join = $('join'); join.href = (active && ev.zoom) || C.zoom; join.textContent = L.join;
+$('meta').innerHTML = `${L.id}: <code>${(active && ev.meetingId) || C.meetingId}</code>`;
 
 if(!active){ $('whenRow').hidden = true; return; }
 
